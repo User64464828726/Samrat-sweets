@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samrat Sweets | Sweets · Bakery · Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red: #C8102E;
+  --red-deep: #9B0D23;
+  --red-light: #fff0f2;
+  --red-soft: #ffd6da;
+  --gold: #C49A3C;
+  --gold-light: #f5e9cc;
+  --bg: #FFFDF9;
+  --surface: #F9F5EE;
+  --border: #E8E0D0;
+  --text: #1A1409;
+  --muted: #8A7B68;
+  --green: #2D6A3F;
+  --cream: #FBF6EE;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,253,249,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 64px; padding: 0 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--red);
+  display: flex; align-items: center; gap: 8px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.nav-logo .crown { font-size: 1.1rem; }
+.nav-right { display: flex; align-items: center; gap: 1.8rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.78rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-call {
+  background: var(--red); color: #fff;
+  font-size: 0.75rem; font-weight: 500;
+  padding: 8px 18px; border-radius: 4px;
+  text-decoration: none; transition: background 0.2s;
+  letter-spacing: 0.04em;
+}
+.nav-call:hover { background: var(--red-deep); }
+
+/* HERO */
+.hero {
+  margin-top: 64px;
+  background: var(--cream);
+  padding: 0;
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  padding: 6rem 5vw 5rem 6vw;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+
+.hero-right {
+  background: var(--red);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 4rem 3rem;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.03) 30px, rgba(255,255,255,0.03) 31px);
+}
+
+.hero-mandala {
+  font-size: 12rem;
+  line-height: 1;
+  opacity: 0.15;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  animation: spin 60s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-light); color: var(--gold);
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 6px 14px; border-radius: 2px;
+  margin-bottom: 1.5rem; border: 1px solid rgba(196,154,60,0.3);
+  animation: fadeUp 0.5s ease both;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 700; line-height: 1.0;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+  animation: fadeUp 0.5s 0.08s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--red);
+}
+
+.hero-sub {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.8;
+  margin-bottom: 2.2rem; max-width: 380px;
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.btn-primary {
+  background: var(--red); color: #fff;
+  padding: 12px 28px; border-radius: 4px;
+  font-size: 0.82rem; font-weight: 500;
+  text-decoration: none; transition: background 0.2s;
+  letter-spacing: 0.04em;
+}
+.btn-primary:hover { background: var(--red-deep); }
+
+.btn-outline {
+  border: 1.5px solid var(--border); color: var(--text);
+  padding: 12px 28px; border-radius: 4px;
+  font-size: 0.82rem; font-weight: 500;
+  text-decoration: none; transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+.btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+.hero-divider {
+  width: 48px; height: 2px; background: var(--gold);
+  margin: 2.5rem 0;
+  animation: fadeUp 0.5s 0.22s ease both;
+}
+
+.hero-stats {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.26s ease both;
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 700; color: var(--red);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.66rem; color: var(--muted);
+  margin-top: 4px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.hero-right-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+  width: 100%;
+}
+
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600; font-style: italic;
+  color: #fff; text-align: center; line-height: 1.25;
+  opacity: 0.95;
+}
+
+.hero-since {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); text-align: center;
+}
+
+.hero-right-chips {
+  display: flex; flex-direction: column; gap: 0.7rem; width: 100%; max-width: 240px;
+  margin-top: 1rem;
+}
+.hero-chip {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 10px 16px;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.78rem;
+  display: flex; align-items: center; gap: 10px;
+  transition: background 0.2s;
+}
+.hero-chip:hover { background: rgba(255,255,255,0.18); }
+.hero-chip span { font-size: 1rem; }
+
+/* MENU SECTION */
+#menu {
+  padding: 5rem 5vw 4rem;
+  background: var(--bg);
+}
+
+.section-eyebrow {
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem; font-weight: 700; margin-bottom: 0.4rem;
+  letter-spacing: -0.01em; line-height: 1.1;
+}
+.section-subtitle { font-size: 0.82rem; color: var(--muted); margin-bottom: 2.5rem; }
+
+/* Category tabs */
+.cat-tabs {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;
+}
+.cat-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 2px;
+  border: 1.5px solid var(--border); background: #fff; color: var(--muted);
+  font-size: 0.74rem; font-weight: 500; cursor: pointer;
+  transition: all 0.18s; white-space: nowrap; user-select: none;
+  letter-spacing: 0.04em;
+}
+.cat-tab:hover { border-color: var(--red); color: var(--red); }
+.cat-tab.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* ACCORDION */
+.accordion { display: flex; flex-direction: column; gap: 10px; }
+.acc-block {
+  border: 1.5px solid var(--border); border-radius: 8px;
+  overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s;
+  background: #fff;
+}
+.acc-block:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-color: #d4c8b5; }
+.acc-block.hidden { display: none; }
+.acc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.4rem; cursor: pointer; background: #fff;
+  user-select: none; transition: background 0.15s;
+}
+.acc-header:hover { background: var(--cream); }
+.acc-header.open { background: var(--cream); border-bottom: 1.5px solid var(--border); }
+.acc-left { display: flex; align-items: center; gap: 10px; }
+.acc-icon { font-size: 1.1rem; }
+.acc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600; font-size: 1.05rem; letter-spacing: 0.01em;
+}
+.acc-count {
+  background: var(--gold-light); color: var(--gold);
+  font-size: 0.65rem; font-weight: 600; padding: 3px 9px; border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.acc-arrow { font-size: 0.65rem; color: var(--muted); transition: transform 0.25s; }
+.acc-header.open .acc-arrow { transform: rotate(180deg); }
+.acc-body { display: none; }
+.acc-body.open { display: block; }
+
+/* Items */
+.items-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px; background: var(--border);
+}
+.item {
+  background: #fff; padding: 0.9rem 1.1rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 0.7rem; transition: background 0.15s;
+}
+.item:hover { background: var(--cream); }
+.item-info { flex: 1; }
+.item-name {
+  font-size: 0.8rem; font-weight: 500; line-height: 1.45;
+  display: flex; align-items: flex-start; gap: 6px; color: var(--text);
+}
+.veg-dot {
+  display: inline-block; min-width: 7px; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--green); margin-top: 5px; flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px rgba(45,106,63,0.25);
+}
+.item-desc { font-size: 0.68rem; color: var(--muted); margin-top: 3px; line-height: 1.5; padding-left: 13px; }
+.item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 700; color: var(--red);
+  white-space: nowrap; margin-top: 1px;
+}
+
+/* MAP SECTION */
+#location {
+  padding: 5rem 5vw;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+}
+.map-wrap {
+  display: grid; grid-template-columns: 1fr 1.8fr; gap: 3rem; align-items: start;
+}
+.map-info .section-title { margin-bottom: 0.5rem; }
+.map-info > p { font-size: 0.83rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+.info-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1.2rem; }
+.info-icon { font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+.info-text { font-size: 0.82rem; line-height: 1.6; }
+.info-text strong {
+  display: block; font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold); margin-bottom: 2px; font-weight: 600;
+}
+.call-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--red); color: #fff;
+  padding: 13px 26px; border-radius: 4px;
+  text-decoration: none; font-size: 0.82rem; font-weight: 500;
+  margin-top: 1rem; transition: background 0.2s; letter-spacing: 0.04em;
+}
+.call-btn:hover { background: var(--red-deep); }
+.map-embed {
+  border-radius: 10px 10px 0 0; overflow: hidden;
+  border: 1.5px solid var(--border); border-bottom: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+.map-embed iframe { width: 100%; height: 380px; display: block; border: none; }
+.map-open-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #1A1409; color: #fff; text-decoration: none;
+  padding: 13px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em;
+  border-radius: 0 0 10px 10px;
+  border: 1.5px solid #1A1409;
+  transition: background 0.2s;
+}
+.map-open-btn:hover { background: #2e2210; }
+
+/* FOOTER */
+footer {
+  background: #110D06; color: rgba(255,255,255,0.4);
+  padding: 2.8rem 5vw;
+  display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: center; gap: 1.5rem;
+}
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 700; color: #fff;
+}
+.footer-brand span { color: var(--gold); }
+.footer-sub {
+  font-size: 0.65rem; margin-top: 3px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.2);
+}
+.footer-copy { font-size: 0.68rem; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { min-height: 320px; padding: 3rem 2rem; }
+  .hero-left { padding: 4rem 5vw 3rem; }
+  .map-wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 3rem; }
+  .hero-right { display: none; }
+  .hero { grid-template-columns: 1fr; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span class="crown">♛</span> Samrat Sweets</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Location</a></li>
+    </ul>
+    <a class="nav-call" href="tel:08586889025">📞 Call Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">🌿 100% Vegetarian · Fresh Daily</div>
+    <h1>Samrat<br><em>Sweets™</em></h1>
+    <p class="hero-sub">Handcrafted mithai, fresh-baked cakes, and authentic Indian flavours — made with desi ghee and generations of love.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">View Full Menu</a>
+      <a href="#location" class="btn-outline">Find Us</a>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Menu Items</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Vegetarian</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Pure</div>
+        <div class="stat-label">Desi Ghee</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-mandala">🪷</div>
+    <div class="hero-right-content">
+      <p class="hero-since">Est. in Lucknow</p>
+      <p class="hero-tagline">"Where every<br>sweet tells<br>a story."</p>
+      <div class="hero-right-chips">
+        <div class="hero-chip"><span>🍮</span> Desi Ghee Mithai</div>
+        <div class="hero-chip"><span>🎂</span> Fresh-Baked Cakes</div>
+        <div class="hero-chip"><span>🪔</span> Navratri Specials</div>
+        <div class="hero-chip"><span>📦</span> Gift Boxes Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-eyebrow">What We Offer</div>
+  <h2 class="section-title">Our Menu</h2>
+  <p class="section-subtitle">Tap a category to filter · Click any row to expand</p>
+
+  <div class="cat-tabs">
+    <div class="cat-tab active" onclick="filterCat('all',this)">🍽️ All</div>
+    <div class="cat-tab" onclick="filterCat('navratri',this)">🪔 Navratri</div>
+    <div class="cat-tab" onclick="filterCat('sweets',this)">🍮 Sweets</div>
+    <div class="cat-tab" onclick="filterCat('cakes',this)">🎂 Cakes</div>
+    <div class="cat-tab" onclick="filterCat('cookies',this)">🍪 Cookies</div>
+    <div class="cat-tab" onclick="filterCat('namkeen',this)">🥨 Namkeen</div>
+    <div class="cat-tab" onclick="filterCat('drinks',this)">🥤 Drinks</div>
+  </div>
+
+  <div class="accordion">
+
+    <!-- NAVRATRI -->
+    <div class="acc-block" data-cat="navratri">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🪔</span><span class="acc-name">Navratri Special</span><span class="acc-count">36 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Banana Chips 150g</div></div><div class="item-price">₹75</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Diet Chips 100g</div></div><div class="item-price">₹40</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kali Mirch Mota Chips 100g</div></div><div class="item-price">₹40</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Lal Mirch Mota Chips 100g</div></div><div class="item-price">₹40</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Plain Mota Chips 100g</div></div><div class="item-price">₹40</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Potato Waffers</div></div><div class="item-price">₹45</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Ramdana Ladoo 12pc</div></div><div class="item-price">₹90</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Sabudana Mixture</div></div><div class="item-price">₹75</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Angoori Petha</div></div><div class="item-price">₹180</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Coconut Burfi</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Coconut Dryfruit Laddo</div></div><div class="item-price">₹185</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Dry Petha 400g</div></div><div class="item-price">₹110</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Ghiya Burfi</div></div><div class="item-price">₹150</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kalakand</div></div><div class="item-price">₹162</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kesar Peda</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kesar Petha</div></div><div class="item-price">₹200</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Makhana Burfi</div></div><div class="item-price">₹150</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Mathura Peda</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Milk Cake</div></div><div class="item-price">₹145</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Pineapple Burfi</div></div><div class="item-price">₹150</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rabdi 100g</div></div><div class="item-price">₹70</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rasgulla 1pc</div></div><div class="item-price">₹17</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rasmalai 1pc</div></div><div class="item-price">₹48</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rabri Rasmalai 1pc</div></div><div class="item-price">₹58</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Navratri Sabudana Kheer</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Aloo Chaat</div></div><div class="item-price">₹90</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Aloo Lacha Tokri</div></div><div class="item-price">₹130</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Aloo Tikki Sabudana</div></div><div class="item-price">₹110</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Aloo Ki Sabzi Combo</div></div><div class="item-price">₹190</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Nav Aloo Ki Sabzi</div></div><div class="item-price">₹180</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Navratri Malai Tikka</div></div><div class="item-price">₹250</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Navratri Special Thali</div><div class="item-desc">Paneer sabzi, aloo sabzi, sitafal sabzi, sabudana kheer, fruit raita, samak rice, 4 kuttu puri &amp; papad</div></div><div class="item-price">₹320</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Paneer Ki Sabzi</div></div><div class="item-price">₹270</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Paneer Ki Sabzi Combo</div></div><div class="item-price">₹240</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Sitafal Ki Sabzi</div></div><div class="item-price">₹220</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWEETS -->
+    <div class="acc-block" data-cat="sweets">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🍮</span><span class="acc-name">Sweets &amp; Mithai</span><span class="acc-count">43 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Bikaneri Burfi</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chocolate Burfi</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Motichoor Laddu Desi Ghee</div></div><div class="item-price">₹610</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Pista Burfi</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Plain Burfi</div></div><div class="item-price">₹140</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Badam Patisa</div></div><div class="item-price">₹138</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Dhodha</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kaju Patisa</div></div><div class="item-price">₹148</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Soan Halwa</div></div><div class="item-price">₹155</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chana Bite</div></div><div class="item-price">₹145</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chocolate Bite</div></div><div class="item-price">₹305</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Dry Fruit Laddu</div></div><div class="item-price">₹310</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Kaju Katli</div></div><div class="item-price">₹269</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Khajoor Dry Fruit Burfi</div></div><div class="item-price">₹255</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Mango Bite</div></div><div class="item-price">₹305</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Meva Bite</div></div><div class="item-price">₹305</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rose Bite</div></div><div class="item-price">₹305</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Boondi Laddo 4pc</div></div><div class="item-price">₹60</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Desi Ghee Atta Laddu</div></div><div class="item-price">₹135</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Desi Ghee Besan Laddu</div></div><div class="item-price">₹135</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Jodhpuri Ladoo 4pc</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Motichoor Desi Ghee Laddu</div></div><div class="item-price">₹152</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Plain Besan Laddu</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Plain Kesar Laddu</div></div><div class="item-price">₹162</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Shahi Laddu</div></div><div class="item-price">₹162</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Balushahi</div></div><div class="item-price">₹140</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chenna Murki</div></div><div class="item-price">₹152</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Coconut Laddo</div></div><div class="item-price">₹135</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Gulab Jamun Big</div></div><div class="item-price">₹105</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Gulab Jamun Small</div></div><div class="item-price">₹105</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Imarti</div></div><div class="item-price">₹130</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Moong Dal Burfi</div></div><div class="item-price">₹140</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Mysore Pak</div></div><div class="item-price">₹150</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Paneer Jalebi</div></div><div class="item-price">₹135</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Soan Papdi 800g</div></div><div class="item-price">₹340</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chaina Toast</div></div><div class="item-price">₹125</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Cham Cham</div></div><div class="item-price">₹125</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Malai Chaap</div></div><div class="item-price">₹125</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rasbhari</div></div><div class="item-price">₹102</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Rajbhog 1pc</div></div><div class="item-price">₹34</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Tilla Kulfi</div></div><div class="item-price">₹50</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Assorted Mithai Box 1kg</div><div class="item-desc">Kaju Katli, Dhoda, Milk Cake, Patisha</div></div><div class="item-price">₹740</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAKES -->
+    <div class="acc-block" data-cat="cakes">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🎂</span><span class="acc-name">Cakes &amp; Pastries</span><span class="acc-count">15 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Black Forest Cake</div></div><div class="item-price">₹400</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Blueberry Cake</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Butterscotch Cake</div></div><div class="item-price">₹400</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chocolate Vanilla Cake</div></div><div class="item-price">₹450</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chocochip Cake</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chocolate Truffle Cake 1kg</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Mango Cake</div></div><div class="item-price">₹400</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Marble Cake</div></div><div class="item-price">₹450</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Pineapple Cake</div></div><div class="item-price">₹400</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Red Velvet Cake 500g</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Red Velvet Heart Cake</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Fresh Fruit Cake</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Oreo Cake</div></div><div class="item-price">₹500</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Fruit And Nut Muffin</div></div><div class="item-price">₹20</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Vanilla Slice Cake</div></div><div class="item-price">₹60</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COOKIES -->
+    <div class="acc-block" data-cat="cookies">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🍪</span><span class="acc-name">Handmade Butter Cookies</span><span class="acc-count">14 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Badam Roll Cookies 300g</div></div><div class="item-price">₹180</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Butter Ajwain Cookies 300g</div></div><div class="item-price">₹120</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Butter Finger Cookies 300g</div></div><div class="item-price">₹180</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Butter Jeera Cookies 300g</div></div><div class="item-price">₹120</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Coconut Macroon 300g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Desi Ghee Atta Cookies 400g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Gur Rusk 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Nutty Butty Cookies 300g</div></div><div class="item-price">₹180</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Oats Chocochip Cookies 300g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Oats Sugarfree 300g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Pumpkin Cookies 300g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Ragi Cookies 300g</div></div><div class="item-price">₹160</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Sauf Rusk 400g</div></div><div class="item-price">₹80</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Special Dry Fruit Cookies 300g</div></div><div class="item-price">₹180</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAMKEEN -->
+    <div class="acc-block" data-cat="namkeen">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🥨</span><span class="acc-name">Namkeen &amp; Savoury</span><span class="acc-count">12 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Besan Papdi 200g</div></div><div class="item-price">₹60</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Gur Para 500g</div></div><div class="item-price">₹120</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Maida Kaju Masala 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Methi Mathi 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Namak Para 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Shakar Para 500g</div></div><div class="item-price">₹120</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Tikoni Mathi 300g</div></div><div class="item-price">₹75</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Bhakarwadi 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Chidiya Samosa 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Mini Kachori 400g</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Masala Cashew 200g</div></div><div class="item-price">₹280</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Salted Cashew 200g</div></div><div class="item-price">₹280</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="acc-block" data-cat="drinks">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-left"><span class="acc-icon">🥤</span><span class="acc-name">Drinks &amp; Beverages</span><span class="acc-count">6 items</span></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="items-grid">
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Hot Coffee</div></div><div class="item-price">₹70</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Badam Milk</div></div><div class="item-price">₹80</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Salted Lassi</div></div><div class="item-price">₹80</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Sweet Lassi</div></div><div class="item-price">₹80</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Virgin Mojito</div><div class="item-desc">Fresh mint, lime juice, sugar &amp; soda — perfect summer cooler</div></div><div class="item-price">₹100</div></div>
+          <div class="item"><div class="item-info"><div class="item-name"><span class="veg-dot"></span>Thandai 200ml</div></div><div class="item-price">₹70</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="map-wrap">
+    <div class="map-info">
+      <div class="section-eyebrow">Visit Us</div>
+      <h2 class="section-title">Find Us</h2>
+      <p>Visit us for fresh sweets, hot snacks, and celebration cakes — made daily with love.</p>
+      <div class="info-row">
+        <span class="info-icon">📍</span>
+        <div class="info-text"><strong>Address</strong>Near Prakash Hospital &amp; Punjab National Bank, NH-8, Manesar, Gurgaon, Haryana — 122051</div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">📞</span>
+        <div class="info-text"><strong>Phone</strong>085868 89025</div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🕐</span>
+        <div class="info-text"><strong>Hours</strong>Open Daily · Morning to Evening</div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🌿</span>
+        <div class="info-text"><strong>Specialty</strong>100% Veg · Desi Ghee Sweets · Fresh Cakes</div>
+      </div>
+      <a class="call-btn" href="tel:08586889025">📞 Call to Order</a>
+    </div>
+    <div>
+      <div class="map-embed">
+        <!-- Static map image (loads online); fallback SVG shown offline -->
+        <a href="https://maps.app.goo.gl/SStLEpLnGjkHQuTS9" target="_blank" style="display:block;width:100%;height:100%;text-decoration:none;">
+          <img
+            src="https://maps.googleapis.com/maps/api/staticmap?center=28.35882,76.93637&zoom=16&size=640x400&scale=2&markers=color:red%7Clabel:S%7C28.35882,76.93637&style=feature:poi|visibility:off&key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            alt="Samrat Sweets on Google Maps"
+            style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;"
+          />
+          <!-- Offline fallback: styled SVG map placeholder -->
+          <div style="display:none;width:100%;height:100%;background:#f0ebe0;border-radius:12px;flex-direction:column;align-items:center;justify-content:center;gap:12px;border:2px dashed #C8102E;">
+            <div style="font-size:3rem;">📍</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;color:#C8102E;">Samrat Sweets</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.8rem;color:#8A7B68;text-align:center;padding:0 1rem;">Near Prakash Hospital, NH-8<br>Manesar, Gurgaon — 122051</div>
+            <div style="background:#C8102E;color:#fff;font-size:0.75rem;font-weight:500;padding:8px 20px;border-radius:4px;letter-spacing:0.05em;">TAP TO OPEN IN MAPS ↗</div>
+          </div>
+        </a>
+      </div>
+      <a href="https://maps.app.goo.gl/SStLEpLnGjkHQuTS9" target="_blank" class="map-open-btn">
+        🗺️ Open in Google Maps &nbsp;↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">♛ Samrat<span>™</span></div>
+    <div class="footer-sub">Sweets · Bakery · Restaurant</div>
+  </div>
+  <div class="footer-copy">© 2025 Samrat Sweets. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleAcc(header) {
+    const isOpen = header.classList.contains('open');
+    header.classList.toggle('open', !isOpen);
+    header.nextElementSibling.classList.toggle('open', !isOpen);
+  }
+
+  function filterCat(cat, tab) {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.acc-block[data-cat]').forEach(el => {
+      const show = cat === 'all' || el.dataset.cat === cat;
+      el.classList.toggle('hidden', !show);
+      if (!show) {
+        el.querySelector('.acc-header').classList.remove('open');
+        el.querySelector('.acc-body').classList.remove('open');
+      }
+    });
+    if (cat !== 'all') {
+      const target = document.querySelector(`.acc-block[data-cat="${cat}"]`);
+      if (target) {
+        target.querySelector('.acc-header').classList.add('open');
+        target.querySelector('.acc-body').classList.add('open');
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
